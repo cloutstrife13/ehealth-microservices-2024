@@ -1,13 +1,25 @@
 version: "3.9"
 
 services:
+  patient-service:
+    build:
+      context: services/patient-service
+      dockerfile: Dockerfile
+    container_name: patient-service
+    ports:
+      - "8080:8080"
+    networks:
+      - ehealth-microservices
+    volumes:
+      - ./services/patient-service/:/app
+
   user-service:
     build:
       context: services/user-service
       dockerfile: Dockerfile
     container_name: user-service
     ports:
-      - "8181:8181"
+      - "8081:8081"
     networks:
       - ehealth-microservices
     volumes:
