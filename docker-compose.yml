@@ -3,7 +3,7 @@ version: "3.9"
 services:
   user-service:
     build:
-      context: .
+      context: services/user-service
       dockerfile: Dockerfile
     container_name: user-service
     ports:

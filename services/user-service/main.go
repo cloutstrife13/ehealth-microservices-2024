@@ -16,7 +16,7 @@ func main() {
 
 func helloHandler(rw http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		log.Println(("GET request received, testing hot reload"))
+		log.Println(("GET request received, testing hot reload 2"))
 		name := r.URL.Query().Get("name")
 		rw.Write([]byte(fmt.Sprintf("hi %v\n", name)))
 	}
