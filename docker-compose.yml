@@ -11,7 +11,7 @@ services:
     networks:
       - ehealth-microservices
     volumes:
-      - ./:/app
+      - ./services/user-service/:/app
 
   postgres:
     container_name: postgres
