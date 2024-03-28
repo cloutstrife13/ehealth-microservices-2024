@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:latest AS development
 
 RUN go install github.com/githubnemo/CompileDaemon@latest
 
