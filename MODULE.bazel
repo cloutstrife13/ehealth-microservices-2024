@@ -1,6 +1,8 @@
-###############################################################################
-# Bazel now uses Bzlmod by default to manage external dependencies.
-# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
-#
-# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
-###############################################################################
+"""Module description goes here."""
+
+## https://bazel.build/external/migration
+
+module(
+    name = "ehealth-microservices-2024",
+    repo_name = "com_github_cloutstrife13_ehealth_microservices_2024",
+)

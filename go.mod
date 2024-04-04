@@ -1,14 +1,10 @@
-module cloutstrife13/patient-service
+module github.com/cloutstrife13/ehealth-microservices-2024
 
-go 1.22.1
+go 1.22
 
 require github.com/kataras/iris/v12 v12.2.10
 
-require (
-	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
-	github.com/modern-go/reflect2 v1.0.2 // indirect
-)
+require github.com/sergi/go-diff v1.1.0 // indirect
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
@@ -28,7 +24,6 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/kataras/blocks v0.0.8 // indirect
 	github.com/kataras/golog v0.1.11 // indirect
-	github.com/kataras/iris v0.0.2
 	github.com/kataras/pio v0.0.13 // indirect
 	github.com/kataras/sitemap v0.0.6 // indirect
 	github.com/kataras/tunnel v0.0.4 // indirect

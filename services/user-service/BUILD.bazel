@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "user-service_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/user-service",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//services/user-service/users",
+        "@com_github_kataras_iris_v12//:iris",
+    ],
+)
+
+go_binary(
+    name = "user-service",
+    embed = [":user-service_lib"],
+    visibility = ["//visibility:public"],
+)

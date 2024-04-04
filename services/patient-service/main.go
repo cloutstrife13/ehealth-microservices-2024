@@ -1,8 +1,7 @@
 package main
 
 import (
-	"cloutstrife13/patient-service/src/patients"
-
+	"github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/patients"
 	"github.com/kataras/iris/v12"
 )
 
