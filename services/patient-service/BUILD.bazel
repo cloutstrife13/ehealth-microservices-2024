@@ -14,6 +14,8 @@ go_library(
 go_binary(
     name = "patient-service",
     embed = [":patient-service_lib"],
+    goarch = "amd64",
+    goos = "linux",
     visibility = ["//visibility:public"],
 )
 
@@ -31,6 +33,17 @@ oci_image(
     base = "@distroless_base",
     entrypoint = ["/patient-service"],
     tars = [":tar"],
+)
+
+load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+
+platform_transition_filegroup(
+    name = "transitioned_image",
+    srcs = [":image"],
+    target_platform = select({
+        "@platforms//cpu:arm64": "@io_bazel_rules_go//go/toolchain:linux_arm64",
+        "@platforms//cpu:x86_64": "@io_bazel_rules_go//go/toolchain:linux_amd64",
+    }),
 )
 
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
