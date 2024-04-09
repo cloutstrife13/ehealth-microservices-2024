@@ -16,3 +16,28 @@ go_binary(
     embed = [":user-service_lib"],
     visibility = ["//visibility:public"],
 )
+
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+pkg_tar(
+    name = "tar",
+    srcs = [":user-service"],
+)
+
+load("@rules_oci//oci:defs.bzl", "oci_image")
+
+oci_image(
+    name = "image",
+    base = "@distroless_base",
+    entrypoint = ["/user-service"],
+    tars = [":tar"],
+)
+
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+
+oci_tarball(
+    name = "tarball",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":image",
+    repo_tags = ["gcr.io/example:latest"],
+)
