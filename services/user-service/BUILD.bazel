@@ -32,6 +32,7 @@ oci_image(
     name = "image",
     base = "@distroless_base",
     entrypoint = ["/user-service"],
+    exposed_ports = ["8081/tcp"],
     tars = [":tar"],
 )
 
@@ -49,8 +50,8 @@ platform_transition_filegroup(
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 
 oci_tarball(
-    name = "tarball",
+    name = "container",
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
-    repo_tags = ["gcr.io/example:latest"],
+    repo_tags = ["user-service:latest"],
 )
