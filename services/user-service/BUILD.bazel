@@ -12,6 +12,12 @@ go_library(
 )
 
 go_binary(
+    name = "dev",
+    embed = [":user-service_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
     name = "user-service",
     embed = [":user-service_lib"],
     goarch = "amd64",

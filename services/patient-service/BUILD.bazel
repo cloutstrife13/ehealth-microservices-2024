@@ -12,6 +12,12 @@ go_library(
 )
 
 go_binary(
+    name = "dev",
+    embed = [":patient-service_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
     name = "patient-service",
     embed = [":patient-service_lib"],
     goarch = "amd64",
