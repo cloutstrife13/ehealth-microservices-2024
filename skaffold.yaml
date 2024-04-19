@@ -1,0 +1,17 @@
+apiVersion: skaffold/v4beta10
+kind: Config
+metadata:
+  name: ehealth-microservices-2024
+build:
+  local:
+    push: false
+  artifacts:
+    - image: user-service
+      bazel:
+        target: //services/user-service:container.tar
+    - image: patient-service
+      bazel:
+        target: //services/patient-service:container.tar
+manifests:
+  rawYaml:
+    - k8s/k8s-pod.yaml

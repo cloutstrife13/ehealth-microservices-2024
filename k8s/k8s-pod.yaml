@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bazel
+spec:
+  containers:
+    - name: user-service
+      image: user-service
+    - name: patient-service
+      image: patient-service

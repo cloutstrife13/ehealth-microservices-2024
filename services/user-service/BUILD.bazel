@@ -56,7 +56,7 @@ platform_transition_filegroup(
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 
 oci_tarball(
-    name = "container",
+    name = "container.tar",
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
     repo_tags = ["user-service:latest"],
