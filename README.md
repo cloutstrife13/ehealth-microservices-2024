@@ -7,15 +7,27 @@ This is an eHealth project geared towards automating the Bismark system in Germa
 ## Prerequisite
 
 ```bash
-# Install golang via Homebrew
+# Install golang
 brew install go
 
 # Install Docker
 brew cask install docker
+
+# Install bazel
+brew install bazel
+
+# Install kubectl
+brew install kubectl
+
+# Install minikube
+brew install minikube
+
+# Install skaffold
+brew install skaffold
 ```
 
 ## Launching microservices
 
 ```bash
-docker-compose up
+skaffold dev
 ```
