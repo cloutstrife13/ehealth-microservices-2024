@@ -14,4 +14,4 @@ build:
         target: //services/patient-service:container.tar
 manifests:
   rawYaml:
-    - k8s/k8s-pod.yaml
+    - k8s/*-service.yaml
