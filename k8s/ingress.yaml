@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: local-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /patients
+spec:
+  rules:
+    - host: hello-world.info
+      http:
+        paths:
+          - path: /patients
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-patient-service
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: local-ingress-2
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /users
+spec:
+  rules:
+    - host: hello-world.info
+      http:
+        paths:
+          - path: /users
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-user-service
+                port:
+                  number: 80
