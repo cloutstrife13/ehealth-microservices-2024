@@ -5,5 +5,4 @@ type User struct {
 	FirstName   string `json:"firstName"`
 	LastName    string `json:"lastName"`
 	DateOfBirth string `json:"dateOfBirth"`
-	// InsuranceCode string `json:"insuranceCode"`
 }

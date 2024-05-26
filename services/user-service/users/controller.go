@@ -7,5 +7,6 @@ func UserController(app *iris.Application) {
 	{
 		usersAPI.Use(iris.Compression)
 		usersAPI.Get("/", getUsers)
+		usersAPI.Post("/", postUser)
 	}
 }
