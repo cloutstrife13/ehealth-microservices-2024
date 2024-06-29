@@ -6,18 +6,13 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0.2"
     }
-    
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = "2.41.0"
-    }
   }
   
-  cloud {
-    organization = "the-junkyard"
+#   cloud {
+#     organization = "the-junkyard"
 
-    workspaces {
-      name = "ehealth-microservices-hcp"
-    }
-  }
+#     workspaces {
+#       name = "ehealth-microservices-hcp"
+#     }
+#   }
 }
