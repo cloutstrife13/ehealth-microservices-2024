@@ -6,7 +6,7 @@ go_library(
     importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service",
     visibility = ["//visibility:private"],
     deps = [
-        "//services/patient-service/patients",
+        "//services/patient-service/src/patients",
         "@com_github_kataras_iris_v12//:iris",
     ],
 )

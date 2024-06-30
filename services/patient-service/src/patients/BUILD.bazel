@@ -7,7 +7,7 @@ go_library(
         "service.go",
         "types.go",
     ],
-    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/patients",
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/src/patients",
     visibility = ["//visibility:public"],
     deps = ["@com_github_kataras_iris_v12//:iris"],
 )
