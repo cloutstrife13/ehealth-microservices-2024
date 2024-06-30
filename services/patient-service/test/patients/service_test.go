@@ -16,13 +16,12 @@ var _ = Describe("PatientService", Ordered, func() {
 	var (
 		ctx         context.Context
 		pgContainer *postgres.PostgresContainer
-		err         error
 	)
 
 	BeforeAll(func() {
 		ctx = context.Background()
 
-		pgContainer, err = postgres.RunContainer(ctx,
+		pgContainer, _ = postgres.RunContainer(ctx,
 			testcontainers.WithImage("postgres:15.3-alpine"),
 			postgres.WithDatabase("test-db"),
 			postgres.WithUsername("postgres"),
@@ -31,9 +30,6 @@ var _ = Describe("PatientService", Ordered, func() {
 				wait.ForLog("database system is ready to accept connections").
 					WithOccurrence(2).WithStartupTimeout(5*time.Second)),
 		)
-
-		if err = pgContainer.Terminate(ctx); err != nil {
-		}
 	})
 
 	AfterAll(func() {
