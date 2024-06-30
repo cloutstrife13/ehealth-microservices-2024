@@ -15,9 +15,12 @@ spec:
         - name: user-service
           image: user-service
           resources:
-            limits:
+            requests:
+              cpu: "100m"
               memory: "256Mi"
+            limits:
               cpu: "500m"
+              memory: "512Mi"
           ports:
             - containerPort: 8081
 

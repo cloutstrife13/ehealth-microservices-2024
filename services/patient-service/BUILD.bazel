@@ -20,7 +20,7 @@ go_binary(
 go_binary(
     name = "patient-service",
     embed = [":patient-service_lib"],
-    goarch = "amd64",
+    goarch = "arm64", # use amd64 for non Apple Silicon
     goos = "linux",
     visibility = ["//visibility:public"],
 )
