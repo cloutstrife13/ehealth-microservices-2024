@@ -1,9 +1,10 @@
 package patients
 
 type Patient struct {
-	ID          string `json:"id"`
+	Id          string `json:"id"`
 	FirstName   string `json:"firstName"`
 	LastName    string `json:"lastName"`
 	DateOfBirth string `json:"dateOfBirth"`
-	// InsuranceCode string `json:"insuranceCode"`
+	InsuranceId string `json:"insuranceId"`
+	InsurerId   string `json:"insurerId"`
 }
