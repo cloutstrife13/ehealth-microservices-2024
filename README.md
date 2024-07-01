@@ -26,6 +26,16 @@ brew install minikube
 brew install skaffold
 ```
 
+## Dependency management
+
+```bash
+# Add some dependency with Go CLI
+go get <dependency-name>
+
+# Update dependency list in Bazel
+bazel run //:gazelle-update
+```
+
 ## Launching microservices
 
 ```bash
