@@ -11,6 +11,7 @@ go_library(
     importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/src/patients",
     visibility = ["//visibility:public"],
     deps = [
+        "@com_github_google_uuid//:uuid",
         "@com_github_kataras_iris_v12//:iris",
         "@io_gorm_gorm//:gorm",
     ],
