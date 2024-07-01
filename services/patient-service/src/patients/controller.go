@@ -1,13 +1,14 @@
 package patients
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/kataras/iris/v12"
+)
 
-func PatientController(app *iris.Application) {
-	service := PatientsService{}
+type PatientController struct{}
 
-	patientsAPI := app.Party("/patients")
-	{
-		patientsAPI.Use(iris.Compression)
-		patientsAPI.Get("/", service.getPatients)
-	}
+func (controller PatientController) RegisterEndpoints(app *iris.Application, service PatientService) {
+	patientEndpoint := app.Party("/patients")
+
+	patientEndpoint.Use(iris.Compression)
+	patientEndpoint.Get("/", service.getPatients)
 }
