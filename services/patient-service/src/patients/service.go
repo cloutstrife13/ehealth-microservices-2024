@@ -1,8 +1,13 @@
 package patients
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/kataras/iris/v12"
+	"gorm.io/gorm"
+)
 
-type PatientService struct{}
+type PatientService struct {
+	Db *gorm.DB
+}
 
 var patients = []Patient{
 	{Id: "1", FirstName: "Ada", LastName: "Lovelace", DateOfBirth: "10/12/1815"},
