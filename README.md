@@ -39,5 +39,9 @@ bazel run //:gazelle-update
 ## Launching microservices
 
 ```bash
+# Launch dev environment in minikube
+minikube start
+
+# Deploy and start services in Kubernetes with hot-reload
 skaffold dev
 ```
