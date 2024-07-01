@@ -7,64 +7,65 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
+	gormPg "gorm.io/driver/postgres"
+	"gorm.io/gorm"
+
 	"github.com/testcontainers/testcontainers-go"
-	"github.com/testcontainers/testcontainers-go/modules/postgres"
+	testcontainersPg "github.com/testcontainers/testcontainers-go/modules/postgres"
 	"github.com/testcontainers/testcontainers-go/wait"
+
+	p "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/src/patients"
+	utils "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/test/utils"
 )
 
 var _ = Describe("PatientService", Ordered, func() {
 	var (
-		ctx         context.Context
-		pgContainer *postgres.PostgresContainer
+		ctx            context.Context
+		pgContainer    *testcontainersPg.PostgresContainer
+		patientService *p.PatientService
 	)
 
 	BeforeAll(func() {
 		ctx = context.Background()
 
-		pgContainer, _ = postgres.RunContainer(ctx,
+		pgContainer, _ = testcontainersPg.RunContainer(ctx,
 			testcontainers.WithImage("postgres:15.3-alpine"),
-			postgres.WithDatabase("test-db"),
-			postgres.WithUsername("postgres"),
-			postgres.WithPassword("postgres"),
+			testcontainersPg.WithDatabase("patients"),
+			testcontainersPg.WithUsername("postgres"),
+			testcontainersPg.WithPassword("postgres"),
 			testcontainers.WithWaitStrategy(
 				wait.ForLog("database system is ready to accept connections").
 					WithOccurrence(2).WithStartupTimeout(5*time.Second)),
 		)
+
+		connectionString, _ := pgContainer.ConnectionString(ctx)
+
+		db, _ := gorm.Open(gormPg.Open(connectionString), &gorm.Config{})
+
+		db.AutoMigrate(&p.Patient{})
+
+		patientService = &p.PatientService{
+			Db: db,
+		}
 	})
 
 	AfterAll(func() {
 		pgContainer.Terminate(ctx)
 	})
 
-	It("fetches a list of patients", func() {
-		Expect(true).To(BeTrue())
+	It("creates a new patient in the database", func() {
+		patient := p.Patient{
+			FirstName:   "Ada",
+			LastName:    "Lovelace",
+			DateOfBirth: "10/12/1815",
+			InsuranceId: "123456789",
+			InsurerId:   "987654321",
+		}
+
+		patientService.CreatePatient(&patient)
+
+		isUuidGeneratedAfterCreate := utils.IsValidUUID(patient.ID.String())
+
+		Expect(isUuidGeneratedAfterCreate).To(BeTrue())
 	})
 })
-
-// Context("When creating an invalid car", func() {
-
-// It("should return the correct response", func() {
-// 	    requestBody := `{"id": "701","title": "GM","color": "Transparent"}`
-// 	    request, _ := http.NewRequest("POST", "http://localhost:8080/cars", bytes.NewBuffer([]byte(requestBody)))
-// 	    request.Header.Set("Content-Type", "application/json")
-
-// 	    client := &http.Client{}
-// 	    response, err := client.Do(request)
-// 	    Expect(err).NotTo(HaveOccurred())
-// 	    Expect(response.StatusCode).To(Equal(http.StatusCreated))
-// })
-
-// 	It("should return an error in the response", func() {
-// 		requestBody := ""
-// 		request, _ := http.NewRequest("POST", "http://localhost:8080/cars", bytes.NewBuffer([]byte(requestBody)))
-// 		request.Header.Set("Content-Type", "application/json")
-
-// 		client := &http.Client{}
-// 		response, err := client.Do(request)
-// 		Expect(err).NotTo(HaveOccurred())
-// 		Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
-
-// 		responseBody, _ := io.ReadAll(response.Body)
-// 		Expect(string(responseBody)).To(ContainSubstring("Failed"))
-// 	})
-// })

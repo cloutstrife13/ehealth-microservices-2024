@@ -12,7 +12,7 @@ type PatientModule struct {
 
 func (module PatientModule) RegisterModule() {
 	controller := PatientController{}
-	service := PatientService{Db: module.Db}
+	service := &PatientService{Db: module.Db}
 
 	controller.RegisterEndpoints(module.App, service)
 }

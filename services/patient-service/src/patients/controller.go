@@ -6,7 +6,7 @@ import (
 
 type PatientController struct{}
 
-func (controller PatientController) RegisterEndpoints(app *iris.Application, service PatientService) {
+func (controller PatientController) RegisterEndpoints(app *iris.Application, service *PatientService) {
 	patientEndpoint := app.Party("/patients")
 
 	patientEndpoint.Use(iris.Compression)
