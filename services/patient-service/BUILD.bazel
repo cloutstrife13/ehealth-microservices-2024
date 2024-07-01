@@ -8,6 +8,8 @@ go_library(
     deps = [
         "//services/patient-service/src/patients",
         "@com_github_kataras_iris_v12//:iris",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
     ],
 )
 
@@ -20,7 +22,7 @@ go_binary(
 go_binary(
     name = "patient-service",
     embed = [":patient-service_lib"],
-    goarch = "arm64", # use amd64 for non Apple Silicon
+    goarch = "arm64",  # use amd64 for non Apple Silicon
     goos = "linux",
     visibility = ["//visibility:public"],
 )

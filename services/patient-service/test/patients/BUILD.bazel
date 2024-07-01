@@ -7,10 +7,10 @@ go_test(
         "service_test.go",
     ],
     deps = [
-        "@com_github_onsi_ginkgo_v2//:go_default_library",
-        "@com_github_onsi_gomega//:go_default_library",
-        "@com_github_testcontainers_testcontainers_go//:go_default_library",
-        "@com_github_testcontainers_testcontainers_go//wait:go_default_library",
-        "@com_github_testcontainers_testcontainers_go_modules_postgres//:go_default_library",
+        "@com_github_onsi_ginkgo_v2//:ginkgo",
+        "@com_github_onsi_gomega//:gomega",
+        "@com_github_testcontainers_testcontainers_go//:testcontainers-go",
+        "@com_github_testcontainers_testcontainers_go//wait",
+        "@com_github_testcontainers_testcontainers_go_modules_postgres//:postgres",
     ],
 )
