@@ -1,12 +1,11 @@
 package users
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/labstack/echo"
+)
 
-func UserController(app *iris.Application) {
-	usersAPI := app.Party("/users")
-	{
-		usersAPI.Use(iris.Compression)
-		usersAPI.Get("/", getUsers)
-		usersAPI.Post("/", postUser)
-	}
+func UserController(app *echo.Echo) {
+	usersAPI := app.Group("/users")
+	usersAPI.GET("", getUsers)
+	usersAPI.POST("", postUser)
 }

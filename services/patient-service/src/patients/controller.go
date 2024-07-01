@@ -1,22 +1,23 @@
 package patients
 
 import (
-	"github.com/kataras/iris/v12"
+	"net/http"
+
+	"github.com/labstack/echo"
 )
 
 type PatientController struct {
 	Service *PatientService
 }
 
-func (controller PatientController) RegisterEndpoints(app *iris.Application) {
-	patientEndpoint := app.Party("/patients")
+func (controller PatientController) RegisterEndpoints(app *echo.Echo) {
+	patientEndpoint := app.Group("/patients")
 
-	patientEndpoint.Use(iris.Compression)
-	patientEndpoint.Get("/", controller.FindPatients)
+	patientEndpoint.GET("", controller.FindPatients)
 }
 
-func (controller PatientController) FindPatients(ctx iris.Context) {
+func (controller PatientController) FindPatients(ctx echo.Context) error {
 	patients := []Patient{}
 	controller.Service.FindPatients(&patients)
-	ctx.JSON(patients)
+	return ctx.JSON(http.StatusFound, patients)
 }

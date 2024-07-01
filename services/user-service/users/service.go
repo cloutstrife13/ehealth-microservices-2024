@@ -2,8 +2,9 @@ package users
 
 import (
 	"fmt"
+	"net/http"
 
-	"github.com/kataras/iris/v12"
+	"github.com/labstack/echo"
 )
 
 var users = []User{
@@ -11,22 +12,25 @@ var users = []User{
 	{ID: "2", FirstName: "Lightning", LastName: "Quirks", DateOfBirth: "02/06/1955"},
 }
 
-func getUsers(ctx iris.Context) {
-	ctx.JSON(users)
+func getUsers(ctx echo.Context) error {
+	return ctx.JSON(http.StatusFound, users)
 }
 
-func postUser(ctx iris.Context) {
-	var user User
+func postUser(ctx echo.Context) error {
+	newUser := new(User)
 
-	err := ctx.ReadJSON(&user)
+	if err := ctx.Bind(newUser); err != nil {
+		return ctx.String(http.StatusBadRequest, "Bad request")
+	}
 
-	if err != nil {
-		ctx.StopWithProblem(iris.StatusBadRequest, iris.NewProblem().
-			Title("User creation failure").DetailErr(err))
-		return
+	// Load into separate struct for security
+	user := User{
+		FirstName:   newUser.FirstName,
+		LastName:    newUser.LastName,
+		DateOfBirth: newUser.DateOfBirth,
 	}
 
 	fmt.Println(user)
 
-	ctx.StatusCode(iris.StatusCreated)
+	return ctx.JSON(http.StatusCreated, user)
 }

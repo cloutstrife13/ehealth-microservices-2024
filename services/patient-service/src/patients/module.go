@@ -1,12 +1,12 @@
 package patients
 
 import (
-	"github.com/kataras/iris/v12"
+	"github.com/labstack/echo"
 	"gorm.io/gorm"
 )
 
 type PatientModule struct {
-	App *iris.Application
+	App *echo.Echo
 	Db  *gorm.DB
 }
 
