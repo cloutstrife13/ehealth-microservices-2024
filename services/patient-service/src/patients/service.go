@@ -1,6 +1,7 @@
 package patients
 
 import (
+	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 	"gorm.io/gorm"
 )
@@ -16,6 +17,14 @@ var patients = []PatientDto{
 
 func (service *PatientService) getPatients(ctx iris.Context) {
 	ctx.JSON(patients)
+}
+
+func (service *PatientService) FindPatients(patients *[]Patient) {
+	service.Db.Find(&patients)
+}
+
+func (service *PatientService) FindPatient(patient *Patient, ID uuid.UUID) {
+	service.Db.First(&patient, ID)
 }
 
 func (service *PatientService) CreatePatient(patient *Patient) {
