@@ -39,6 +39,20 @@ go_register_toolchains(version = "1.22.4")
 gazelle_dependencies(go_repository_default_config = "//:WORKSPACE.bazel")
 
 http_archive(
+    name = "musl_toolchains",
+    sha256 = "79c3dab39eb52a9c0927f6a222e2a10b733fd875ccdad59feadd5b30fd4518fb",
+    url = "https://github.com/bazel-contrib/musl-toolchain/releases/download/v0.1.9/musl_toolchain-v0.1.9.tar.gz",
+)
+
+load("@musl_toolchains//:repositories.bzl", "load_musl_toolchains")
+
+load_musl_toolchains()
+
+load("@musl_toolchains//:toolchains.bzl", "register_musl_toolchains")
+
+register_musl_toolchains()
+
+http_archive(
     name = "rules_pkg",
     sha256 = "e93b7309591cabd68828a1bcddade1c158954d323be2205063e718763627682a",
     urls = [
