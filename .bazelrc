@@ -1,0 +1,1 @@
+common --features=fully_static_link
