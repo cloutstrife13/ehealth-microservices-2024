@@ -6,9 +6,8 @@ go_test(
         "patients_integration_test.go",
         "patients_suite_test.go",
     ],
+    embed = ["//services/patient-service/src/patients:patients"],
     deps = [
-        "//services/patient-service/src/patients",
-        "//services/patient-service/test/utils",
         "@com_github_onsi_ginkgo_v2//:ginkgo",
         "@com_github_onsi_gomega//:gomega",
         "@com_github_onsi_gomega//gstruct",
