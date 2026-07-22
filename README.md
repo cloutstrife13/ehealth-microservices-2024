@@ -40,6 +40,9 @@ bazel clean --expunge
 ## Dependency management
 
 ```bash
+# Tidy up Go modules and track transitive requirements
+go mod tidy
+
 # Add some dependency with Go CLI
 go get <dependency-name>
 
@@ -56,4 +59,17 @@ minikube addons enable ingress
 
 # Deploy and start services in Kubernetes with hot-reload
 skaffold dev
+```
+
+## Running tests
+
+```bash
+# Run all tests across the entire workspace
+bazel test --test_output=errors //...
+
+# Run specific integration tests (e.g., patient-service tests)
+bazel test --test_output=errors //services/patient-service/test/patients/...
+
+# Run specific integration tests with verbose, line-by-line test output
+bazel test --test_output=all --test_arg=--ginkgo.v //services/patient-service/test/patients/...
 ```
