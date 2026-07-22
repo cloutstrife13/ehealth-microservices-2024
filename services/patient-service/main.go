@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/src/patients"
 	"github.com/labstack/echo"
 	"gorm.io/driver/postgres"
@@ -8,10 +10,16 @@ import (
 )
 
 func main() {
-	db, err := gorm.Open(postgres.Open("patients-db"), &gorm.Config{})
+	// Look for the DATABASE_URL environment variable first
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		// Fallback connection string for local development (standard DSN format)
+		dsn = "host=localhost user=postgres password=SecurePassword dbname=patients-db port=5433 sslmode=disable"
+	}
 
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("Failed to connect database")
+		panic("Failed to connect database: " + err.Error())
 	}
 
 	app := echo.New()

@@ -7,11 +7,11 @@ This is an eHealth project geared towards automating the Bismark system in Germa
 ## Prerequisite
 
 ```bash
-# Install golang
+# Install golang (Go 1.24+ recommended)
 brew install go
 
 # Install Docker
-brew cask install docker
+brew install --cask docker
 
 # Install bazel
 brew install bazel
@@ -24,6 +24,17 @@ brew install minikube
 
 # Install skaffold
 brew install skaffold
+```
+
+## First-Time Setup & Troubleshooting
+If you are cloning this repository for the first time, ensure your environment is clean to prevent local toolchain or parent workspace conflicts:
+
+```bash
+# If you have a global go.work file in a parent directory that causes version conflicts:
+export GOWORK=off
+
+# Clear any legacy Bazel states before your initial build
+bazel clean --expunge
 ```
 
 ## Dependency management
@@ -39,8 +50,9 @@ bazel run //:gazelle-update
 ## Launching microservices
 
 ```bash
-# Launch dev environment in minikube
+# Make sure your minikube cluster is running and ingress addon is enabled
 minikube start
+minikube addons enable ingress
 
 # Deploy and start services in Kubernetes with hot-reload
 skaffold dev

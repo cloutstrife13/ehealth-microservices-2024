@@ -23,6 +23,12 @@ spec:
               memory: "512Mi"
           ports:
             - containerPort: 8080
+          # Add the environment variable block here:
+          env:
+            - name: DATABASE_URL
+              # This points to the "postgres" service inside your cluster
+              # Adjust the username/password/dbname if they differ in your database configuration
+              value: "host=postgres user=postgres password=SecurePassword dbname=patients-db port=5432 sslmode=disable"
 
 ---
 apiVersion: v1
