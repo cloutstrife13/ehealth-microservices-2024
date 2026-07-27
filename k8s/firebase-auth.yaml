@@ -13,22 +13,35 @@ spec:
     spec:
       containers:
         - name: firebase-auth
-          image: voraciousdev/firebase-tools
-          env:
-            - name: FIREBASE_PROJECT_ID
-              value: "ehealth-local-project"
-          # Instruct the container to start *only* the Auth emulator on all network interfaces
-          command: ["firebase", "emulators:start", "--only", "auth", "--project", "ehealth-local-project", "--host", "0.0.0.0"]
+          image: andreysenov/firebase-tools:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo '{"emulators":{"auth":{"host":"0.0.0.0","port":9099},"hub":{"host":"0.0.0.0","port":4400},"ui":{"enabled":true,"host":"0.0.0.0","port":4000}}}' > firebase.json && \
+              firebase emulators:start --project ehealth-local-project
           ports:
             - containerPort: 9099
+            - containerPort: 4000
+            - containerPort: 4400
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: firebase-auth # Internal DNS name your microservices will use
+  name: firebase-auth
 spec:
+  type: NodePort
   selector:
     app: firebase-auth-emulator
   ports:
-    - port: 9099
+    - name: auth
+      port: 9099
       targetPort: 9099
+      nodePort: 30099
+    - name: ui
+      port: 4000
+      targetPort: 4000
+      nodePort: 30004
+    - name: hub
+      port: 4400
+      targetPort: 4400
+      nodePort: 30440

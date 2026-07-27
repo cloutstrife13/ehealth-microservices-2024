@@ -9,9 +9,11 @@ go_library(
     importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/auth-service",
     visibility = ["//visibility:private"],
     deps = [
+        "//packages/models",
         "//services/auth-service/src/auth",
         "//services/auth-service/src/users",
         "@com_github_labstack_echo//:echo",
+        "@com_github_labstack_echo//middleware",
         "@io_gorm_driver_postgres//:postgres",
         "@io_gorm_gorm//:gorm",
     ],

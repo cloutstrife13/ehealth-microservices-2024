@@ -13,8 +13,8 @@ bazel_dep(name = "gazelle", version = "0.51.3", repo_name = "bazel_gazelle")
 
 go_sdk = use_extension("@io_bazel_rules_go//go:extensions.bzl", "go_sdk")
 
-# Force Go 1.24.12 to satisfy outer workspace requirements and bypass local file reading
-go_sdk.download(version = "1.24.12")
+# Upgraded Go version to 1.25.0 to satisfy x/sys, x/sync, and Firebase SDK requirements
+go_sdk.download(version = "1.25.0")
 
 go_deps = use_extension("@bazel_gazelle//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
@@ -28,8 +28,10 @@ use_repo(
     "com_github_onsi_gomega",
     "com_github_testcontainers_testcontainers_go",
     "com_github_testcontainers_testcontainers_go_modules_postgres",
+    "com_google_firebase_go_v4",
     "io_gorm_driver_postgres",
     "io_gorm_gorm",
+    "org_golang_google_api",
 )
 
 bazel_dep(name = "toolchains_musl", version = "0.1.27.bcr.1")

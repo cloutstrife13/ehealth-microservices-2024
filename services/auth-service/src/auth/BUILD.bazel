@@ -12,7 +12,10 @@ go_library(
     deps = [
         "//packages/models",
         "@com_github_labstack_echo//:echo",
+        "@com_google_firebase_go_v4//:go",
+        "@com_google_firebase_go_v4//auth",
         "@io_gorm_gorm//:gorm",
+        "@org_golang_google_api//option",
     ],
 )
 

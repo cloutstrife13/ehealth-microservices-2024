@@ -7,22 +7,33 @@ import (
 	"github.com/labstack/echo"
 )
 
+type RegisterRequest struct {
+	models.User
+	Password string `json:"password"`
+}
+
 type AuthController struct {
 	Service *AuthService
 }
 
 func (controller AuthController) RegisterEndpoints(app *echo.Echo) {
-	authAPI := app.Group("/auth")
-	authAPI.POST("", controller.Register)
+	authEndpoint := app.Group("/auth")
+	authEndpoint.POST("", controller.Register)
 }
 
-func (controller AuthController) Register(c echo.Context) error {
-	newUser := new(models.User)
-	if err := c.Bind(newUser); err != nil {
-		return err
+func (controller *AuthController) Register(ctx echo.Context) error {
+	var req RegisterRequest
+	if err := ctx.Bind(&req); err != nil {
+		return ctx.JSON(http.StatusBadRequest, echo.Map{"error": "Invalid request payload: " + err.Error()})
 	}
-	if err := controller.Service.Register(newUser); err != nil {
-		return err
+
+	if req.Password == "" {
+		return ctx.JSON(http.StatusBadRequest, echo.Map{"error": "Password is required"})
 	}
-	return c.JSON(http.StatusCreated, newUser)
+
+	if err := controller.Service.Register(&req.User, req.Password); err != nil {
+		return ctx.JSON(http.StatusInternalServerError, echo.Map{"error": err.Error()})
+	}
+
+	return ctx.JSON(http.StatusCreated, req.User)
 }

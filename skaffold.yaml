@@ -28,3 +28,18 @@ portForward:
     resourceName: k8s-auth-service
     port: 80
     localPort: 8081
+
+  - resourceType: service
+    resourceName: firebase-auth
+    port: 9099
+    localPort: 9099
+
+  - resourceType: service
+    resourceName: firebase-auth
+    port: 4000
+    localPort: 4000
+
+  - resourceType: service
+    resourceName: firebase-auth
+    port: 4400
+    localPort: 4400

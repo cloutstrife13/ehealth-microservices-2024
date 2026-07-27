@@ -22,9 +22,9 @@ import (
 
 var _ = Describe("AuthService (integration)", Ordered, func() {
 	var (
-		ctx            context.Context
-		pgContainer    *testcontainersPg.PostgresContainer
-		authService    *a.AuthService
+		ctx         context.Context
+		pgContainer *testcontainersPg.PostgresContainer
+		authService *a.AuthService
 	)
 
 	globalUser := models.User{

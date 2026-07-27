@@ -12,7 +12,6 @@ go_test(
         "//services/auth-service/src/auth",
         "@com_github_onsi_ginkgo_v2//:ginkgo",
         "@com_github_onsi_gomega//:gomega",
-        "@com_github_onsi_gomega//gstruct",
         "@com_github_testcontainers_testcontainers_go//:testcontainers-go",
         "@com_github_testcontainers_testcontainers_go//wait",
         "@com_github_testcontainers_testcontainers_go_modules_postgres//:postgres",
