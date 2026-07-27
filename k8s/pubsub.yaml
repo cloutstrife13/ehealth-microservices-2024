@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pubsub-emulator
+spec:
+  selector:
+    matchLabels:
+      app: pubsub-emulator
+  template:
+    metadata:
+      labels:
+        app: pubsub-emulator
+    spec:
+      containers:
+        - name: pubsub-emulator
+          image: gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
+          # Start the emulator and bind it to all network interfaces on port 8085
+          command: ["gcloud", "beta", "emulators", "pubsub", "start", "--host-port=0.0.0.0:8085"]
+          ports:
+            - containerPort: 8085
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pubsub # Internal DNS name your microservices will use
+spec:
+  selector:
+    app: pubsub-emulator
+  ports:
+    - port: 8085
+      targetPort: 8085
