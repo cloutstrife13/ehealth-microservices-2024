@@ -40,7 +40,7 @@ func main() {
 	users.UserController(app)
 
 	for _, route := range app.Routes() {
-    log.Printf("REGISTERED ROUTE: %s -> %s", route.Method, route.Path)
+		log.Printf("REGISTERED ROUTE: %s -> %s", route.Method, route.Path)
 	}
 
 	app.Start(":8081")
