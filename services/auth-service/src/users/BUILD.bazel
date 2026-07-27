@@ -5,11 +5,14 @@ go_library(
     srcs = [
         "controller.go",
         "service.go",
-        "types.go",
     ],
-    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/user-service/users",
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/auth-service/src/users",
     visibility = ["//visibility:public"],
-    deps = ["@com_github_labstack_echo//:echo"],
+    deps = [
+        "//packages/helpers",
+        "//packages/models",
+        "@com_github_labstack_echo//:echo",
+    ],
 )
 
 alias(

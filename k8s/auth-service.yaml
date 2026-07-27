@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-user-service
+  name: k8s-auth-service
 spec:
   selector:
     matchLabels:
-      app: k8s-user-service
+      app: k8s-auth-service
   template:
     metadata:
       labels:
-        app: k8s-user-service
+        app: k8s-auth-service
     spec:
       containers:
-        - name: user-service
-          image: user-service
+        - name: auth-service
+          image: auth-service
           resources:
             requests:
               cpu: "100m"
@@ -28,13 +28,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-user-service
+  name: k8s-auth-service
 spec:
   type: NodePort
   selector:
-    app: k8s-user-service
+    app: k8s-auth-service
   ports:
-    - name: user-service
+    - name: auth-service
       port: 80
       nodePort: 30001
       targetPort: 8081

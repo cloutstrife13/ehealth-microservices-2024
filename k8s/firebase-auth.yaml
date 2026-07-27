@@ -14,7 +14,7 @@ spec:
       containers:
         - name: firebase-auth
           image: voraciousdev/firebase-tools
-          environment:
+          env:
             - name: FIREBASE_PROJECT_ID
               value: "ehealth-local-project"
           # Instruct the container to start *only* the Auth emulator on all network interfaces

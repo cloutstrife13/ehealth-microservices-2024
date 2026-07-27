@@ -4,25 +4,28 @@ load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 go_library(
-    name = "user-service_lib",
+    name = "auth-service_lib",
     srcs = ["main.go"],
-    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/user-service",
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/auth-service",
     visibility = ["//visibility:private"],
     deps = [
-        "//services/user-service/users",
+        "//services/auth-service/src/auth",
+        "//services/auth-service/src/users",
         "@com_github_labstack_echo//:echo",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
     ],
 )
 
 go_binary(
     name = "dev",
-    embed = [":user-service_lib"],
+    embed = [":auth-service_lib"],
     visibility = ["//visibility:public"],
 )
 
 go_binary(
-    name = "user-service",
-    embed = [":user-service_lib"],
+    name = "auth-service",
+    embed = [":auth-service_lib"],
     goarch = "arm64",  # use amd64 for non Apple Silicon
     goos = "linux",
     visibility = ["//visibility:public"],
@@ -30,13 +33,13 @@ go_binary(
 
 pkg_tar(
     name = "tar",
-    srcs = [":user-service"],
+    srcs = [":auth-service"],
 )
 
 oci_image(
     name = "image",
     base = "@distroless_base",
-    entrypoint = ["/user-service"],
+    entrypoint = ["/auth-service"],
     exposed_ports = ["8081/tcp"],
     tars = [":tar"],
 )
@@ -54,5 +57,5 @@ oci_tarball(
     name = "container.tar",
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
-    repo_tags = ["user-service:latest"],
+    repo_tags = ["auth-service:latest"],
 )

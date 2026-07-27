@@ -1,14 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "utils",
-    srcs = ["matcher.go"],
-    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/test/utils",
+    name = "models",
+    srcs = ["user.go"],
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/packages/models",
     visibility = ["//visibility:public"],
+    deps = ["@io_gorm_gorm//:gorm"],
 )
 
 alias(
     name = "go_default_library",
-    actual = ":utils",
+    actual = ":models",
     visibility = ["//visibility:public"],
 )

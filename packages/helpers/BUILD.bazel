@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "helpers",
+    srcs = [
+        "date.go",
+        "test.go",
+    ],
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/packages/helpers",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":helpers",
+    visibility = ["//visibility:public"],
+)

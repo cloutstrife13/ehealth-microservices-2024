@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "consumer",
+    srcs = ["service.go"],
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/printer-service/consumer",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":consumer",
+    visibility = ["//visibility:public"],
+)

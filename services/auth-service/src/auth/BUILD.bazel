@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "auth",
+    srcs = [
+        "controller.go",
+        "module.go",
+        "service.go",
+    ],
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/auth-service/src/auth",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/models",
+        "@com_github_labstack_echo//:echo",
+        "@io_gorm_gorm//:gorm",
+    ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":auth",
+    visibility = ["//visibility:public"],
+)

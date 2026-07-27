@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "printer-service_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/cloutstrife13/ehealth-microservices-2024/services/printer-service",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_labstack_echo//:echo"],
+)
+
+go_binary(
+    name = "printer-service",
+    embed = [":printer-service_lib"],
+    visibility = ["//visibility:public"],
+)

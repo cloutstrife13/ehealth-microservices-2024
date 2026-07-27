@@ -6,25 +6,25 @@ build:
   local:
     push: false
   artifacts:
-    - image: user-service
+    - image: auth-service
       bazel:
-        target: //services/user-service:container.tar
-    - image: patient-service
-      bazel:
-        target: //services/patient-service:container.tar
+        target: //services/auth-service:container.tar
+    # - image: patient-service
+    #   bazel:
+    #     target: //services/patient-service:container.tar
 manifests:
   rawYaml:
-    - k8s/*-service.yaml
+    - k8s/auth-service.yaml
     - k8s/postgres.yaml
     - k8s/pubsub.yaml
     - k8s/firebase-auth.yaml
     # - k8s/ingress.yaml
 portForward:
+  # - resourceType: service
+  #   resourceName: k8s-patient-service
+  #   port: 80
+  #   localPort: 8080
   - resourceType: service
-    resourceName: k8s-patient-service
-    port: 80
-    localPort: 8080
-  - resourceType: service
-    resourceName: k8s-user-service
+    resourceName: k8s-auth-service
     port: 80
     localPort: 8081

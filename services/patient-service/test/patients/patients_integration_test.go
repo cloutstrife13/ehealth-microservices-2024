@@ -15,8 +15,8 @@ import (
 	testcontainersPg "github.com/testcontainers/testcontainers-go/modules/postgres"
 	"github.com/testcontainers/testcontainers-go/wait"
 
+	utils "github.com/cloutstrife13/ehealth-microservices-2024/packages/helpers"
 	p "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/src/patients"
-	utils "github.com/cloutstrife13/ehealth-microservices-2024/services/patient-service/test/utils"
 )
 
 var _ = Describe("PatientService (integration)", Ordered, func() {
